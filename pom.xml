@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ┌──┐
+  │  │
+  │Eh│ony
+  └──┘
+  -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.ehony</groupId>
+    <artifactId>awt-painter</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0-SNAPSHOT</version>
+
+    <name>AWT Painter</name>
+    <description>CSS-like effects brought to Java shape painting.</description>
+    <url>https://github.com/smikhalevski/awt-painter.git</url>
+    <licenses>
+        <license>
+            <name>The MIT License (MIT)</name>
+            <url>http://opensource.org/licenses/MIT</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <scm>
+        <connection>scm:git:git://github.com/smikhalevski/awt-painter.git</connection>
+        <developerConnection>scm:git:git@github.com:smikhalevski/awt-painter.git</developerConnection>
+        <url>http://github.com/smikhalevski/awt-painter</url>
+    </scm>
+    <developers>
+        <developer>
+            <id>smikhalevski</id>
+            <name>Savva Mikhalevski</name>
+            <email>smikhalevski@gmail.com</email>
+            <roles>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <properties>
+        <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.9</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+</project>

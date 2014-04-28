@@ -1,0 +1,34 @@
+# Build
+
+*.pydevproject
+.project
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.classpath
+.loadpath
+.externalToolBuilders/
+*.launch
+.cproject
+.buildpath
+.settings/
+settings.xml
+target/
+
+# System
+
+.idea/
+*.iml
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+$RECYCLE.BIN/
+.Trashes
+ehthumbs.db
+Thumbs.db
