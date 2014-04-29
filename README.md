@@ -10,7 +10,8 @@ CSS-like effects brought to Java shape painting.
     2. [Drop Shadow](#drop-shadow)
 3. [Background](#background)
 4. [Outlines](#outlines)
-5. [License](#license)
+5. [Painter Ordering](#painter-ordering)
+6. [License](#license)
 
 ## Quick Start
 
@@ -26,28 +27,12 @@ This section describes bundled painters which provide same effects as CSS [`box-
 
 Default shadow settings match ones defined in CSS specification. Drop shadow painter does not have any required parameters but may be configured with:
 
- 
-
-
-
-| Effect        | Description   |
-| ------------- | ------------- |
-| ![Blur Radius][q] | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter.<br/> `insetShadow(0, 0, 10, 0, Color.BLACK)` |
+| Output | Description |
+| ------ | ----------- |
+| ![Blur Radius][q] | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter. |
 | ![X and Y offsets][q] | **X and Y offsets**<br/> A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top). |
-| ![Spread Distance][q] | **Spread Distance**<br/> Positive values cause the shadow to expand in all directions by the specified radius. Negative values cause the shadow to contract. |
-| ![][q] |  |
-| ![][q] |  |
-| ![][q] |  |
-| ![][q] |  |
-
-
-
-
- 
-
-
-
-**Paint** Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used.
+| ![Spread Distance][q] | **Spread Distance**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract. |
+| ![Paint][q] | **Paint**<br/> Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used. |
 
 Note that inset shadow with all parameters set to zero paints nothing.
 
@@ -83,10 +68,14 @@ Default outline settings match ones defined in CSS specification. Outline painte
 
 **Subsequent Dash** If set to `false` then `getSubsequentShape(Shape)` method would return shape ignoring the dash pattern. This may be useful if multiple outline painters are used allowing to prohibit consequent outlines to bend around each other dashes.
 
+## Painter Ordering
+
+`org.ehony.awt.painter.CompositePainter` description.
+
 ## License
 
 The code is available under [MIT licence](LICENSE.txt).
 
 [1]: http://www.w3.org/TR/css3-background/#box-shadow
 
-[q]: http://www.clker.com/cliparts/8/5/7/2/13448089181230741562black-circle-md%5B1%5D-th.png
+[q]: http://data1.whicdn.com/avatars/2231462/thumb.png?1379349521
