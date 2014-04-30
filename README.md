@@ -47,7 +47,12 @@ Default shadow settings match ones defined in CSS specification. Drop shadow pai
 <tbody>
 <tr>
     <td><img src="docs/inset-shadow-blur-radius.png"></td>
-    <td><b>Blur Radius</b><br/>Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Box_blur">box blur</a> filter.</td>
+    <td><b>Blur Radius</b><br/>Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Box_blur">box blur</a> filter.
+    <div class="highlight highlight-java"><pre>new ShapePainter()
+    .background(new Color(0xfcaf3e))
+    .insetShadow(0, 0, 15, 0, new Color(0xcc000000, true))
+    .paint(shape, g);</pre></div>
+    </td>
 </tr>
 </tbody>
 </table>
