@@ -89,13 +89,15 @@ Positive values cause the shadow to expand in all directions by the specified va
     <td>
 <b>Paint</b>
 <pre>
-Paint paint = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));
+Paint paint = new GradientPaint(
+        0, 0, new Color(0xfcaf3e),
+        60, 60, new Color(0x4e9a06));
 new ShapePainter()
     .background(Color.WHITE)
     .insetShadow(0, 0, 15, 0, paint)
     .paint(shape, g);
 </pre>
-Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used.
+Shadow may be painted with an arbitrary <code>java.awt.Paint</code>. If the paint was not specified then paint returned by <code>Graphics#getPaint()</code> is used.
     </td>
 </tr>
 </tbody>
@@ -161,13 +163,15 @@ Positive values cause the shadow to expand in all directions by the specified va
     <td>
 <b>Paint</b>
 <pre>
-Paint paint = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));
+Paint paint = new GradientPaint(
+        0, 0, new Color(0xfcaf3e),
+        60, 60, new Color(0x4e9a06));
 new ShapePainter()
     .background(Color.WHITE)
     .dropShadow(-2, -2, 15, 4, paint, false)
     .paint(shape, g);
 </pre>
-Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used.
+Shadow may be painted with an arbitrary <code>java.awt.Paint</code>. If the paint was not specified then paint returned by <code>Graphics#getPaint()</code> is used.
     </td>
 </tr>
 <tr>
