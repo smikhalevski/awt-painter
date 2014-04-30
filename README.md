@@ -39,7 +39,7 @@ Default shadow settings match ones defined in CSS specification. Drop shadow pai
 
 | Output | Description |
 | ------ | ----------- |
-| ![Blur Radius](docs/inset-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter.<br/> `shapePainter.insetShadow(0, 0, 10, 0, Color.BLACK)` |
+| ![Blur Radius](docs/inset-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter.<br/> <div class="highlight highlight-java">new ShapePainter()<br/>    .background(new Color(0xfcaf3e))<br/>    .insetShadow(0, 0, 15, 0, new Color(0xcc000000, true))<br/>    .paint(shape, g);</div> |
 | ![Offset](docs/inset-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top). |
 | ![Spread](docs/inset-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract. |
 | ![Paint](docs/inset-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used. |
