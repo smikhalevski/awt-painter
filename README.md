@@ -91,7 +91,11 @@ Positive values cause the shadow to expand in all directions by the specified va
 <pre>
 new ShapePainter()
     .background(Color.WHITE)
-    .insetShadow(0, 0, 15, 0, new GradientPaint(0f, 0f, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06)))
+    .insetShadow(
+        0, 0, 15, 0,
+        new GradientPaint(
+            0, 0, new Color(0xfcaf3e),
+            60, 60, new Color(0x4e9a06)))
     .paint(shape, g);
 </pre>
 Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used.
@@ -108,13 +112,84 @@ Note that inset shadow with all parameters set to zero paints nothing.
 
 This painter inherits all the parameters from [inner shadow](#inner-shadow) and introduces:
 
-| Output | Description |
-| ------ | ----------- |
-| ![Blur Radius](docs/drop-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter. |
-| ![Offset](docs/drop-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top). |
-| ![Spread](docs/drop-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract. |
-| ![Paint](docs/drop-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used. |
-| ![Exclude Original Shape](docs/drop-shadow-exclude.png) | **Exclude Original Shape**<br/> If set to `true` omits painting shadow pixels which overlap with original shape. |
+<table>
+<thead>
+<tr>
+    <th>Output</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td><img src="docs/drop-shadow-blur-radius.png"></td>
+    <td>
+<b>Blur Radius</b>
+<pre>
+new ShapePainter()
+    .background(new Color(0xfcaf3e))
+    .insetShadow(0, 0, 15, 0, new Color(0xcc000000, true))
+    .paint(shape, g);
+</pre>
+Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Box_blur">box blur</a> filter.
+    </td>
+</tr>
+<tr>
+    <td><img src="docs/drop-shadow-offset.png"></td>
+    <td>
+<b>Offset</b>
+<pre>
+new ShapePainter()
+    .background(new Color(0xfcaf3e))
+    .insetShadow(0, -5, 10, 0, new Color(0xaa000000, true))
+    .paint(shape, g);
+</pre>
+Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
+    </td>
+</tr>
+<tr>
+    <td><img src="docs/drop-shadow-spread.png"></td>
+    <td>
+<b>Spread</b>
+<pre>
+new ShapePainter()
+    .background(new Color(0xfcaf3e))
+    .insetShadow(0, 0, 15, 10, new Color(0xcc000000, true))
+    .paint(shape, g);
+</pre>
+Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
+    </td>
+</tr>
+<tr>
+    <td><img src="docs/drop-shadow-paint.png"></td>
+    <td>
+<b>Paint</b>
+<pre>
+new ShapePainter()
+    .background(Color.WHITE)
+    .insetShadow(
+        0, 0, 15, 0,
+        new GradientPaint(
+            0, 0, new Color(0xfcaf3e),
+            60, 60, new Color(0x4e9a06)))
+    .paint(shape, g);
+</pre>
+Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used.
+    </td>
+</tr>
+<tr>
+    <td><img src="docs/drop-shadow-exclude.png"></td>
+    <td>
+<b>Exclude Original Shape</b>
+<pre>
+new ShapePainter()
+    .dropShadow(0, 0, 10, 0, new Color(0xee000000, true), true)
+    .paint(shape, g);
+</pre>
+If set to <code>true</code> omits painting shadow pixels which overlap with original shape.
+    </td>
+</tr>
+</tbody>
+</table>
 
 ### Background
 
