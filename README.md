@@ -89,13 +89,10 @@ Positive values cause the shadow to expand in all directions by the specified va
     <td>
 <b>Paint</b>
 <pre>
+Paint paint = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));
 new ShapePainter()
     .background(Color.WHITE)
-    .insetShadow(
-        0, 0, 15, 0,
-        new GradientPaint(
-            0, 0, new Color(0xfcaf3e),
-            60, 60, new Color(0x4e9a06)))
+    .insetShadow(0, 0, 15, 0, paint)
     .paint(shape, g);
 </pre>
 Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used.
@@ -127,7 +124,7 @@ This painter inherits all the parameters from [inner shadow](#inner-shadow) and 
 <pre>
 new ShapePainter()
     .background(new Color(0xfcaf3e))
-    .insetShadow(0, 0, 15, 0, new Color(0xcc000000, true))
+    .dropShadow(0, 0, 10, 0, new Color(0xcc000000, true), false)
     .paint(shape, g);
 </pre>
 Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Box_blur">box blur</a> filter.
@@ -140,7 +137,7 @@ Positive blur radius indicates that the resulting shadow should be blurred. If t
 <pre>
 new ShapePainter()
     .background(new Color(0xfcaf3e))
-    .insetShadow(0, -5, 10, 0, new Color(0xaa000000, true))
+    .dropShadow(5, 5, 10, 0, new Color(0x99000000, true), false)
     .paint(shape, g);
 </pre>
 Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
@@ -153,7 +150,7 @@ Horizontal and vertical offsets can be specified separately. A positive value dr
 <pre>
 new ShapePainter()
     .background(new Color(0xfcaf3e))
-    .insetShadow(0, 0, 15, 10, new Color(0xcc000000, true))
+    .dropShadow(6, 12, 6, -12, new Color(0xcc000000, true), false)
     .paint(shape, g);
 </pre>
 Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
@@ -164,13 +161,10 @@ Positive values cause the shadow to expand in all directions by the specified va
     <td>
 <b>Paint</b>
 <pre>
+Paint paint = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));
 new ShapePainter()
     .background(Color.WHITE)
-    .insetShadow(
-        0, 0, 15, 0,
-        new GradientPaint(
-            0, 0, new Color(0xfcaf3e),
-            60, 60, new Color(0x4e9a06)))
+    .dropShadow(-2, -2, 15, 4, paint, false)
     .paint(shape, g);
 </pre>
 Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used.
