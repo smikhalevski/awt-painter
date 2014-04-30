@@ -37,12 +37,20 @@ This section describes bundled painters which provide same effects as CSS [`box-
 
 Default shadow settings match ones defined in CSS specification. Drop shadow painter does not have any required parameters but may be configured with:
 
-| Output | Description |
-| ------ | ----------- |
-| ![Blur Radius](docs/inset-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter.<br/> ```java asdasdasd ``` |
-| ![Offset](docs/inset-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top). |
-| ![Spread](docs/inset-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract. |
-| ![Paint](docs/inset-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used. |
+<table>
+<thead>
+<tr>
+    <th>Output</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td><img src="docs/inset-shadow-blur-radius.png"></td>
+    <td><b>Blur Radius</b><br/>Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Box_blur">box blur</a> filter.</td>
+</tr>
+</tbody>
+</table>
 
 Note that inset shadow with all parameters set to zero paints nothing.
 
