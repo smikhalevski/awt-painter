@@ -17,38 +17,54 @@ CSS-like effects brought to Java shape painting.
 
 Use `org.ehony.awt.ShapePainter` to access fluent api for drawing shapes.
 
-## Shadows
+## Bundled Painters
+
+AWT Painter provides several classes which implement CSS-like effects.
+
+Exemples below use fllowing objects:
+```java
+ShapePainter shapePainter = new ShapePainter();
+Shape shape = new Rectangle(20, 20, 60, 60);
+```
+
+### Shadows
 
 This section describes bundled painters which provide same effects as CSS [`box-shadow`][1] property.
 
-### Inner Shadow
+#### Inset Shadow
 
-`org.ehony.awt.painter.InnerShadowPainter` is analogue [`box-shadow`][1] property _with_ `inset` keyword specified.
+`org.ehony.awt.painter.InsetShadowPainter` is analogue [`box-shadow`][1] property _with_ `inset` keyword specified.
 
 Default shadow settings match ones defined in CSS specification. Drop shadow painter does not have any required parameters but may be configured with:
 
 | Output | Description |
 | ------ | ----------- |
-| ![Blur Radius](docs/inner-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter. |
+| ![Blur Radius](docs/inner-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter.<br/> `shapePainter.insetShadow(0, 0, 10, 0, Color.BLACK)` |
 | ![Offset](docs/inner-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top). |
 | ![Spread](docs/inner-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract. |
 | ![Paint](docs/inner-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used. |
 
 Note that inset shadow with all parameters set to zero paints nothing.
 
-### Drop Shadow
+#### Drop Shadow
 
 `org.ehony.awt.painter.DropShadowPainter` is analogue [`box-shadow`][1] property _without_ `inset` keyword specified.
 
 This painter inherits all the parameters from [inner shadow](#inner-shadow) and introduces:
 
-**Exclude Original Shape** If set to `true` omits painting shadow pixels which overlap with original shape.
+| Output | Description |
+| ------ | ----------- |
+| ![Blur Radius](docs/drop-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter. |
+| ![Offset](docs/drop-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top). |
+| ![Spread](docs/drop-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract. |
+| ![Paint](docs/drop-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used. |
+| ![Exclude Original Shape](docs/drop-shadow-exclude.png) | **Exclude Original Shape**<br/> If set to `true` omits painting shadow pixels which overlap with original shape. |
 
-## Background
+### Background
 
 `org.ehony.awt.painter.BackgroundPainter` is analogue of [`background`](http://www.w3.org/TR/css3-background/#background) property.
 
-## Outlines
+### Outlines
 
 `org.ehony.awt.painter.OutlinePainter` is analogue of [`outline`](http://www.w3.org/TR/CSS21/ui.html#dynamic-outlines) property.
 
@@ -77,5 +93,3 @@ Default outline settings match ones defined in CSS specification. Outline painte
 The code is available under [MIT licence](LICENSE.txt).
 
 [1]: http://www.w3.org/TR/css3-background/#box-shadow
-
-[q]: http://data1.whicdn.com/avatars/2231462/thumb.png?1379349521
