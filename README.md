@@ -29,7 +29,7 @@ Default shadow settings match ones defined in CSS specification. Drop shadow pai
 
 | Output | Description |
 | ------ | ----------- |
-| ![][docs/inner-shadow-blur-radius.png] | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter. |
+| ![](docs/inner-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [box blur](http://en.wikipedia.org/wiki/Box_blur) filter. |
 | ![][q] | **X and Y offsets**<br/> A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top). |
 | ![][q] | **Spread Distance**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract. |
 | ![][q] | **Paint**<br/> Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics#getPaint()` is used. |
