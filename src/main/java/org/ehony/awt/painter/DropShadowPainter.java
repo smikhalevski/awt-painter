@@ -4,10 +4,9 @@
  * │Eh│ony
  * └──┘
  */
-package org.ehony.painter.painters;
+package org.ehony.awt.painter;
 
-import org.ehony.painter.api.Painter;
-import org.ehony.painter.filters.BoxBlurFilter;
+import org.ehony.awt.api.Painter;
 
 import java.awt.*;
 import java.awt.geom.*;
@@ -98,8 +97,8 @@ public class DropShadowPainter implements Painter
 
         // Create shadow image.
         BufferedImage bi = new BufferedImage((int) (r.getWidth() * sx + 4 * radius) + /*magic 2 pixels to avoid redundant color lines*/2,
-                                             (int) (r.getHeight() * sy + 4 * radius) + 2,
-                                             BufferedImage.TYPE_INT_ARGB);
+                (int) (r.getHeight() * sy + 4 * radius) + 2,
+                BufferedImage.TYPE_INT_ARGB);
         Graphics2D g2d = bi.createGraphics();
         g2d.setRenderingHints(g.getRenderingHints());
         g2d.setPaint(paint);
@@ -107,23 +106,23 @@ public class DropShadowPainter implements Painter
         g2d.fill(area);
 
         Rectangle2D rct = new Rectangle2D.Double(dx + r.getX() - 2 * radius,
-                                                 dy + r.getY() - 2 * radius,
-                                                 bi.getWidth(),
-                                                 bi.getHeight());
+                dy + r.getY() - 2 * radius,
+                bi.getWidth(),
+                bi.getHeight());
 
-        if ((int) radius > 0) {
-            BoxBlurFilter f = new BoxBlurFilter();
-            f.setRadius((int) radius);
-            f.setIterations(1);
-            f.filter(bi, bi);
+
+        try {
+            Convolution.parallelGaussianBlur(bi, bi, radius);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+
         g.setPaint(new TexturePaint(bi, rct));
 
         Area rect = new Area(rct);
 
         if (excludeShape) {
-            area.transform(AffineTransform.getTranslateInstance(r.getX(), r.getY()));
-            rect.subtract(area);
+            rect.subtract(new Area(shape));
         }
 
         g.fill(rect);
@@ -131,3 +130,4 @@ public class DropShadowPainter implements Painter
         g.translate(-x, -y);
     }
 }
+

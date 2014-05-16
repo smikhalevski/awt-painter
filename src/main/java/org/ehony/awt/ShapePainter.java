@@ -4,13 +4,13 @@
  * │Eh│ony
  * └──┘
  */
+package org.ehony.awt;
 
-package org.ehony.painter;
-
-import org.ehony.painter.api.Painter;
-import org.ehony.painter.painters.*;
+import org.ehony.awt.api.Painter;
+import org.ehony.awt.painter.*;
 
 import java.awt.*;
+import java.awt.font.FontRenderContext;
 
 public class ShapePainter<Type extends ShapePainter> extends CompositePainter
 {
@@ -47,6 +47,19 @@ public class ShapePainter<Type extends ShapePainter> extends CompositePainter
         return (Type) this;
     }
 
+    @SuppressWarnings("unchecked")
+    public Type outline(float width, int cap, int join, float miterLimit, float dash[], float dash_phase) {
+        OutlinePainter p = new OutlinePainter();
+        p.setWidth(width);
+        p.setCap(cap);
+        p.setJoin(join);
+        p.setMiterlimit(miterLimit);
+        p.setDash(dash);
+        p.setDash_phase(dash_phase);
+        layer(-200, p);
+        return (Type) this;
+    }
+
     /**
      * Paints area background with provided paint.
      *
@@ -77,5 +90,21 @@ public class ShapePainter<Type extends ShapePainter> extends CompositePainter
     public Type paint(Shape shape, Graphics g) {
         paint(shape, (Graphics2D) g, 0, 0);
         return (Type) this;
+    }
+
+    /**
+     * Paints provided text using effects stored by this painter and provided font.
+     * @return Original builder instance.
+     */
+    @SuppressWarnings("unchecked")
+    public Type paint(String text, Font font, Graphics2D g, int x, int y) {
+        FontRenderContext context = g.getFontMetrics(font).getFontRenderContext();
+        Shape shape = font.createGlyphVector(context, text).getOutline();
+        paint(shape, g, x, y);
+        return (Type) this;
+    }
+
+    public Type paint(String text, Graphics2D g, int x, int y) {
+        return paint(text, g.getFont(), g, x, y);
     }
 }

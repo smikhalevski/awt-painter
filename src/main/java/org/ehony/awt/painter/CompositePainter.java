@@ -4,9 +4,9 @@
  * │Eh│ony
  * └──┘
  */
-package org.ehony.painter.painters;
+package org.ehony.awt.painter;
 
-import org.ehony.painter.api.Painter;
+import org.ehony.awt.api.Painter;
 
 import java.awt.*;
 import java.util.*;

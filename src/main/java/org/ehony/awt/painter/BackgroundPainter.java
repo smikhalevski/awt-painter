@@ -4,14 +4,14 @@
  * │Eh│ony
  * └──┘
  */
-package org.ehony.painter.painters;
+package org.ehony.awt.painter;
 
-import org.ehony.painter.api.Painter;
+import org.ehony.awt.api.Painter;
 
 import java.awt.*;
 
 /**
- * Painter that fills area with a set paint.
+ * Paint fill painter.
  */
 public class BackgroundPainter implements Painter
 {
@@ -33,9 +33,11 @@ public class BackgroundPainter implements Painter
 
     @Override
     public void paint(Shape shape, Graphics2D g, int x, int y) {
+        Paint p = g.getPaint();
         g.translate(x, y);
         g.setPaint(paint);
         g.fill(shape);
         g.translate(-x, -y);
+        g.setPaint(p);
     }
 }

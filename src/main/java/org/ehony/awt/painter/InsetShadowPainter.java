@@ -4,10 +4,9 @@
  * │Eh│ony
  * └──┘
  */
-package org.ehony.painter.painters;
+package org.ehony.awt.painter;
 
-import org.ehony.painter.api.Painter;
-import org.ehony.painter.filters.BoxBlurFilter;
+import org.ehony.awt.api.Painter;
 
 import java.awt.*;
 import java.awt.geom.*;
@@ -74,7 +73,7 @@ public class InsetShadowPainter implements Painter
         Rectangle2D r = area.getBounds2D();
 
         Shape s = AffineTransform.getTranslateInstance(-r.getX(), -r.getY())
-                                 .createTransformedShape(area);
+                .createTransformedShape(area);
 
         // Create shadow shape considering spread.
         double sx = 1 + spread / r.getWidth();
@@ -84,11 +83,11 @@ public class InsetShadowPainter implements Painter
         }
         // Create shadow image.
         BufferedImage bi = new BufferedImage((int) (r.getWidth() * sx + 2 * radius),
-                                             (int) (r.getHeight() * sy + 2 * radius),
-                                             BufferedImage.TYPE_INT_ARGB);
+                (int) (r.getHeight() * sy + 2 * radius),
+                BufferedImage.TYPE_INT_ARGB);
 
         s = AffineTransform.getTranslateInstance(x + radius, y + radius)
-                           .createTransformedShape(s);
+                .createTransformedShape(s);
 
         Area a = new Area(new Rectangle2D.Double(0, 0, bi.getWidth(), bi.getHeight()));
         a.subtract(new Area(s));
@@ -98,15 +97,17 @@ public class InsetShadowPainter implements Painter
         g2d.setPaint(paint);
         g2d.fill(a);
 
-        BoxBlurFilter f = new BoxBlurFilter();
-        f.setRadius((int) radius);
-        f.setIterations(1);
+        try {
+            Convolution.parallelGaussianBlur(bi, bi, radius);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
 
         Rectangle2D rct = new Rectangle2D.Double((r.getX() - radius),
-                                                 (r.getY() - radius),
-                                                 bi.getWidth(),
-                                                 bi.getHeight());
-        f.filter(bi, bi);
+                (r.getY() - radius),
+                bi.getWidth(),
+                bi.getHeight());
+
         g.setPaint(new TexturePaint(bi, rct));
 
         g.fill(area);
