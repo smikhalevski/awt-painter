@@ -17,6 +17,7 @@ public class InsetShadowPainter implements Painter
 
     private float x, y, radius, spread;
     private Paint paint;
+    private GaussianBlur gb = new GaussianBlur();
 
     public float getX() {
         return x;
@@ -40,6 +41,7 @@ public class InsetShadowPainter implements Painter
 
     public void setRadius(float radius) {
         this.radius = radius;
+        gb.setRadius(radius);
     }
 
     public float getSpread() {
@@ -97,11 +99,7 @@ public class InsetShadowPainter implements Painter
         g2d.setPaint(paint);
         g2d.fill(a);
 
-        try {
-            Convolution.parallelGaussianBlur(bi, bi, radius);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        gb.filter(bi, bi);
 
         Rectangle2D rct = new Rectangle2D.Double((r.getX() - radius),
                 (r.getY() - radius),

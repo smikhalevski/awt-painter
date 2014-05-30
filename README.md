@@ -2,6 +2,8 @@
 
 CSS-like effects brought to Java shape painting.
 
+Helps to decouple shapes and their styles allowing developer to concentrate on positioning rather than drawing.
+
 ## Contents
 
 1. [Quick Start](#quick-start)

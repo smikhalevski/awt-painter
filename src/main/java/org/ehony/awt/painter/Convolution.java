@@ -13,53 +13,32 @@ import static java.lang.Math.*;
 public class Convolution
 {
 
-    private static Executor ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
 
-    /**
-     * Create normalized to range [0, 1] Gaussian distribution in range
-     * <tt>[-spread &times; sigma, spread &times; sigma]</tt>.
-     *
-     * @param sigma standard deviation.
-     * @param spread distribution cutoff.
-     * @return Array of size <tt>2 &times; ceil(spread &times; sigma) + 1</tt>.
-     */
-    public static float[] createGaussianDistribution(float sigma, float spread) {
-        float[] comp = new float[2 * (int) ceil(spread * sigma) + 1];
-        float m = Float.MIN_VALUE;
-        for (int i = 0; i < comp.length; i++) {
-            // See http://en.wikipedia.org/wiki/Normal_distribution for more info.
-            // JIT would introduce constant-related optimizations here,
-            // so no excessive variables are required.
-            float n = (float) (1 / (sigma * sqrt(2 * PI)) * pow(E, pow(i - comp.length / 2, 2) / -(2 * sigma * sigma)));
-            comp[i] = n;
-            m = max(n, m);
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public static void parallelConvolve(int[] source, int[] target, int offset, int length, float[] kernel, int[] offsets, boolean opaque, Executor executor, int pixelsPerThread) throws InterruptedException {
+        int delegateCount = source.length / pixelsPerThread + source.length % pixelsPerThread;
+
+        CountDownLatch latch = new CountDownLatch(delegateCount);
+        for (int i = 0; i < delegateCount; i++) {
+            executor.execute(new ConvolutionDelegate(source, target, i * pixelsPerThread, pixelsPerThread, kernel, offsets, opaque, latch));
         }
-        for (int i = 0; i < comp.length; i++) {
-            comp[i] /= m;
-        }
-        return comp;
+
+        latch.await();
     }
 
-    /**
-     * Create 1D normalized to range <tt>[0, 1]</tt> linear convolution kernel for
-     * <a href="http://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a>.
-     * <p>Rank of kernel is <tt>2 &times; ceil(radius) + 1</tt>.</p>
-     * <p>For non-positive radius identity kernel is returned.</p>
-     *
-     * @param radius required blur radius.
-     * @return Linear Gaussian blur kernel.
-     */
-    public static float[] createGaussianBlurKernel(float radius) {
-        if (radius <= 0) {
-            return new float[] {1};
-        } else {
-            // Spread is chosen to provide best perception experience.
-            // Less radius causes neighbouring pixels to have greater weight
-            // to make blur effect stronger.
-            float spread = min(.5f + radius / 4f, 2.25f);
-            return createGaussianDistribution(radius / spread, spread);
-        }
-    }
+
 
     /**
      * Convolves &alpha;RGB array and provided kernel.
@@ -117,48 +96,18 @@ public class Convolution
         }
     }
 
+    private static Executor ex = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors());
+
     private static int clamp(float channel) {
         return min(255, max(0, (int) channel)) & 0xff;
     }
 
-    public static void parallelGaussianBlur(BufferedImage in, BufferedImage out, float radius) throws InterruptedException {
+/*    public static void parallelGaussianBlur(BufferedImage in, BufferedImage out, float radius) throws InterruptedException {
         int[] source = in.getRGB(0, 0, in.getWidth(), in.getHeight(), null, 0, in.getWidth());
         int[] target = new int[source.length];
         parallelGaussianBlur(source,target, in.getWidth(), radius, in.isAlphaPremultiplied(), ex, 100);
         out.setRGB(0, 0, in.getWidth(), in.getHeight(), target, 0, in.getWidth());
-    }
-
-    public static void gaussianBlur(int[] source, int[] target, int width, float radius, boolean opaque) {
-        float[] kernel = createGaussianBlurKernel(radius);
-
-        int[] offsets = new int[kernel.length];
-        for (int i = -kernel.length/2; i <= kernel.length/2; i++) {
-            offsets[i + kernel.length/2] = i;
-        }
-        convolve(source, target, 0, source.length, kernel, offsets, opaque);
-
-        for (int i = 0; i < kernel.length; i++) {
-            offsets[i] *= width;
-        }
-        convolve(target, source, 0, source.length, kernel, offsets, opaque);
-        System.arraycopy(source, 0, target, 0, source.length);
-    }
-
-    public static void parallelGaussianBlur(int[] source, int[] target, int width, float radius, boolean opaque, Executor executor, int pixelsPerThread) throws InterruptedException {
-        float[] kernel = createGaussianBlurKernel(radius);
-
-        int[] offsets = new int[kernel.length];
-        for (int i = -kernel.length/2; i <= kernel.length/2; i++) {
-            offsets[i + kernel.length/2] = i;
-        }
-        parallelConvolve(source, target, 0, source.length, kernel, offsets, opaque, executor, pixelsPerThread);
-
-        for (int i = 0; i < kernel.length; i++) {
-            offsets[i] *= width;
-        }
-        parallelConvolve(target, source, 0, source.length, kernel, offsets, opaque, executor, pixelsPerThread);
-        System.arraycopy(source, 0, target, 0, source.length);
-    }
+    }*/
 
     private static class ConvolutionDelegate implements Runnable
     {
@@ -189,16 +138,7 @@ public class Convolution
         }
     }
 
-    public static void parallelConvolve(int[] source, int[] target, int offset, int length, float[] kernel, int[] offsets, boolean opaque, Executor executor, int pixelsPerThread) throws InterruptedException {
-        int delegateCount = source.length / pixelsPerThread + source.length % pixelsPerThread;
 
-        CountDownLatch latch = new CountDownLatch(delegateCount);
-        for (int i = 0; i < delegateCount; i++) {
-            executor.execute(new ConvolutionDelegate(source, target, i * pixelsPerThread, pixelsPerThread, kernel, offsets, opaque, latch));
-        }
-
-        latch.await();
-    }
 
 
 

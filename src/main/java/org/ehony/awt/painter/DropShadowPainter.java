@@ -21,6 +21,7 @@ public class DropShadowPainter implements Painter
     private float dx, dy, radius, spread;
     private Paint paint;
     private boolean excludeShape;
+    private GaussianBlur gb = new GaussianBlur();
 
     public float getX() {
         return dx;
@@ -44,6 +45,7 @@ public class DropShadowPainter implements Painter
 
     public void setRadius(float radius) {
         this.radius = radius;
+        gb.setRadius(radius);
     }
 
     public float getSpread() {
@@ -111,11 +113,7 @@ public class DropShadowPainter implements Painter
                 bi.getHeight());
 
 
-        try {
-            Convolution.parallelGaussianBlur(bi, bi, radius);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+        gb.filter(bi, bi);
 
         g.setPaint(new TexturePaint(bi, rct));
 

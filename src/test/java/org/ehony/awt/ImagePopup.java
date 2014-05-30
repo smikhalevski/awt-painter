@@ -4,40 +4,26 @@
  * │Eh│ony
  * └──┘
  */
-package org.ehony.awt.painter;
+package org.ehony.awt;
 
-import org.junit.*;
+import org.junit.Ignore;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
-public class ConvolutionTest
+@Ignore
+public class ImagePopup
 {
 
-    private BufferedImage image;
-
-    @Before
-    public void setUp() throws Exception {
-        image = ImageIO.read(getClass().getResourceAsStream("/pattern.jpg"));
+    private ImagePopup() {
+        // Prohibits instantiation.
     }
 
-    @Test
-    public void testBlur() throws Exception {
-        BufferedImage buffer = createCompatibleImage();
-        Convolution.parallelGaussianBlur(image, buffer, 10);
-        showImage(buffer);
-    }
-
-    interface TestPainter {
+    public interface TestPainter {
 
         void paint(Graphics2D canvas);
-    }
-
-    public BufferedImage createCompatibleImage() {
-        return new BufferedImage(image.getWidth(), image.getHeight(), image.getType());
     }
 
     public static void showFrame(int width, int height, final TestPainter painter) throws InterruptedException {
@@ -76,10 +62,10 @@ public class ConvolutionTest
     }
 
     public static int getImageDisplayFactor() {
-        Object f = Toolkit.getDefaultToolkit().getDesktopProperty("apple.awt.contentScaleFactor");
-        if (f instanceof Number) {
-            return ((Number) f).intValue();
-        }
-        return 2;
+//        Object f = Toolkit.getDefaultToolkit().getDesktopProperty("apple.awt.contentScaleFactor");
+//        if (f instanceof Number) {
+//            return ((Number) f).intValue();
+//        }
+        return 1;
     }
 }

@@ -33,11 +33,11 @@ public class BackgroundPainter implements Painter
 
     @Override
     public void paint(Shape shape, Graphics2D g, int x, int y) {
-        Paint p = g.getPaint();
+        Paint paint = g.getPaint();
         g.translate(x, y);
-        g.setPaint(paint);
+        g.setPaint(this.paint);
         g.fill(shape);
         g.translate(-x, -y);
-        g.setPaint(p);
+        g.setPaint(paint);
     }
 }
