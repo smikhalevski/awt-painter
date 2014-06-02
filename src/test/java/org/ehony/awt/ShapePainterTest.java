@@ -9,6 +9,7 @@ package org.ehony.awt;
 import org.ehony.awt.ImagePopup.TestPainter;
 import org.junit.Test;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class ShapePainterTest
@@ -26,7 +27,7 @@ public class ShapePainterTest
         ImagePopup.showFrame(600, 200, new TestPainter()
         {
             @Override
-            public void paint(Graphics2D canvas) {
+            public void paint(Graphics2D canvas, JComponent component) {
                 canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
                 painter.paint("Hello world!", canvas.getFont().deriveFont(60f), canvas, 50, 100);
             }

@@ -9,6 +9,7 @@ package org.ehony.awt.painter;
 import org.ehony.awt.api.Painter;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class ImagePainter implements Painter
@@ -44,7 +45,8 @@ public class ImagePainter implements Painter
     public void paint(Shape shape, Graphics2D g, int x, int y) {
         BufferedImage texture = toBufferedImage(image);
         g.translate(x, y);
-        g.setPaint(new TexturePaint(texture, new Rectangle(x, y, texture.getWidth(), texture.getHeight())));
+        Rectangle2D bounds = shape.getBounds2D();
+        g.setPaint(new TexturePaint(texture, new Rectangle2D.Double(bounds.getX() + x, bounds.getY() + y, texture.getWidth(), texture.getHeight())));
         g.fill(shape);
         g.translate(-x, -y);
     }

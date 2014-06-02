@@ -23,7 +23,7 @@ public class ImagePopup
 
     public interface TestPainter {
 
-        void paint(Graphics2D canvas);
+        void paint(Graphics2D canvas, JComponent component);
     }
 
     public static void showFrame(int width, int height, final TestPainter painter) throws InterruptedException {
@@ -35,7 +35,7 @@ public class ImagePopup
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                painter.paint((Graphics2D) g);
+                painter.paint((Graphics2D) g, this);
             }
         };
         panel.setPreferredSize(new Dimension(width, height));
@@ -54,7 +54,7 @@ public class ImagePopup
         showFrame(image.getWidth() / f, image.getHeight() / f, new TestPainter()
         {
             @Override
-            public void paint(Graphics2D canvas) {
+            public void paint(Graphics2D canvas, JComponent component) {
                 canvas.setTransform(AffineTransform.getScaleInstance(1f / f, 1f / f));
                 canvas.drawImage(image, 0, 0, null);
             }

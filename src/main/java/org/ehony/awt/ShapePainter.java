@@ -75,6 +75,14 @@ public class ShapePainter<Type extends ShapePainter> extends CompositePainter
     }
 
     @SuppressWarnings("unchecked")
+    public Type background(Image image) {
+        ImagePainter painter = new ImagePainter();
+        painter.setImage(image);
+        layer(-100, painter);
+        return (Type) this;
+    }
+
+    @SuppressWarnings("unchecked")
     public Type insetShadow(float dx, float dy, float radius, float spread, Paint paint) {
         InsetShadowPainter painter = new InsetShadowPainter();
         painter.setPaint(paint);
