@@ -44,6 +44,7 @@ Default shadow settings match ones defined in CSS specification. Inset shadow pa
 <td><img src="docs/inset-shadow-blur-radius.png"/></td>
 <td>Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a> filter.</td>
 </tr></table>
+
 ```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
