@@ -37,14 +37,14 @@ This section describes bundled painters which provide same effects as CSS [`box-
 
 `org.ehony.awt.painter.InsetShadowPainter` is analogue [`box-shadow`][1] property _with_ `inset` keyword specified.
 
-Default shadow settings match ones defined in CSS specification. Inset shadow painter does not have any required parameters but may be configured with:
+Default shadow settings match ones defined in CSS specification. Inset shadow with all parameters set to zero paints nothing.
 
-**Blur Radius**
-<table><tr>
-<td><img src="docs/inset-shadow-blur-radius.png"/></td>
-<td>Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a> filter.</td>
-</tr></table>
+![](docs/inset-shadow-blur-radius.png) | ![](docs/inset-shadow-offset.png) | ![](docs/inset-shadow-spread.png) | ![](docs/inset-shadow-paint.png)
+:-:|:-:|:-:|:-:
+[Blur Radius](#blur-radius) | [Offset](#offset) | [Spread](#spread) | [Paint](#paint)
 
+##### Blur Radius
+Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur) filter.
 ```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
@@ -52,62 +52,26 @@ new ShapePainter()
     .paint(shape, g);
 ```
 
-
-
-
-
-<table>
-<thead>
-<tr>
-    <th>Output</th>
-    <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-    <td><img src="docs/inset-shadow-blur-radius.png"></td>
-    <td>
-<b>Blur Radius</b>
-<pre>
-new ShapePainter()
-    .background(new Color(0xfcaf3e))
-    .insetShadow(0, 0, 15, 0, new Color(0xcc000000, true))
-    .paint(shape, g);
-</pre>
-Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Box_blur">box blur</a> filter.
-    </td>
-</tr>
-<tr>
-    <td><img src="docs/inset-shadow-offset.png"></td>
-    <td>
-<b>Offset</b>
-<pre>
+##### Offset
+Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
+```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
     .insetShadow(0, -5, 10, 0, new Color(0xaa000000, true))
     .paint(shape, g);
-</pre>
-Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
-    </td>
-</tr>
-<tr>
-    <td><img src="docs/inset-shadow-spread.png"></td>
-    <td>
-<b>Spread</b>
-<pre>
+```
+
+##### Spread
+Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
+```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
     .insetShadow(0, 0, 15, 10, new Color(0xcc000000, true))
     .paint(shape, g);
-</pre>
-Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
-    </td>
-</tr>
-<tr>
-    <td><img src="docs/inset-shadow-paint.png"></td>
-    <td>
-<b>Paint</b>
-<pre>
+```
+##### Paint
+Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics.getPaint()` is used.
+```java
 Paint paint = new GradientPaint(
         0, 0, new Color(0xfcaf3e),
         60, 60, new Color(0x4e9a06));
@@ -115,14 +79,14 @@ new ShapePainter()
     .background(Color.WHITE)
     .insetShadow(0, 0, 15, 0, paint)
     .paint(shape, g);
-</pre>
-Shadow may be painted with an arbitrary <code>java.awt.Paint</code>. If the paint was not specified then paint returned by <code>Graphics#getPaint()</code> is used.
-    </td>
-</tr>
-</tbody>
-</table>
+```
 
-Note that inset shadow with all parameters set to zero paints nothing.
+
+
+
+
+
+
 
 #### Drop Shadow
 
