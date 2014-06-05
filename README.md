@@ -43,34 +43,28 @@ Default shadow settings match ones defined in CSS specification. Inset shadow wi
 :-:|:-:|:-:|:-:
 [Blur Radius](#blur-radius) | [Offset](#offset) | [Spread](#spread) | [Paint](#paint)
 
-##### Blur Radius
-Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur) filter.
+* <a name="blur-radius"></a>**Blur Radius** Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur) filter.
 ```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
     .insetShadow(0, 0, 15, 0, new Color(0xcc000000, true))
     .paint(shape, g);
 ```
-
-##### Offset
-Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
+* **Offset** Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
 ```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
     .insetShadow(0, -5, 10, 0, new Color(0xaa000000, true))
     .paint(shape, g);
 ```
-
-##### Spread
-Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
+* **Spread** Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
 ```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
     .insetShadow(0, 0, 15, 10, new Color(0xcc000000, true))
     .paint(shape, g);
 ```
-##### Paint
-Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics.getPaint()` is used.
+* **Paint** Shadow may be painted with an arbitrary `java.awt.Paint`. If the paint was not specified then paint returned by `Graphics.getPaint()` is used.
 ```java
 Paint paint = new GradientPaint(
         0, 0, new Color(0xfcaf3e),
