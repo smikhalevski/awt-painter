@@ -40,11 +40,10 @@ This section describes bundled painters which provide same effects as CSS [`box-
 Default shadow settings match ones defined in CSS specification. Inset shadow painter does not have any required parameters but may be configured with:
 
 **Blur Radius**
-
-<img src="docs/inset-shadow-blur-radius.png" float="left"/>
-
-Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur) filter. 
-
+<table><tr>
+<td><img src="docs/inset-shadow-blur-radius.png"/></td>
+<td>Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Gaussian_blur">Gaussian blur</a> filter.</td>
+</tr></table>
 ```java
 new ShapePainter()
     .background(new Color(0xfcaf3e))
