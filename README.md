@@ -37,7 +37,24 @@ This section describes bundled painters which provide same effects as CSS [`box-
 
 `org.ehony.awt.painter.InsetShadowPainter` is analogue [`box-shadow`][1] property _with_ `inset` keyword specified.
 
-Default shadow settings match ones defined in CSS specification. Drop shadow painter does not have any required parameters but may be configured with:
+Default shadow settings match ones defined in CSS specification. Inset shadow painter does not have any required parameters but may be configured with:
+
+**Blur Radius**
+
+<img src="docs/inset-shadow-blur-radius.png" float="left"/>
+
+Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur) filter. 
+
+```java
+new ShapePainter()
+    .background(new Color(0xfcaf3e))
+    .insetShadow(0, 0, 15, 0, new Color(0xcc000000, true))
+    .paint(shape, g);
+```
+
+
+
+
 
 <table>
 <thead>
