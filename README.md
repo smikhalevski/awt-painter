@@ -39,22 +39,12 @@ This section describes bundled painters which provide same effects as CSS [`box-
 
 Default shadow settings match ones defined in CSS specification. Inset shadow with all parameters set to zero paints nothing.
 
-
 Example | Description
  --- | --- 
-![](docs/inset-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur).<br/> <code>decorator.background(0xfffcaf3e).insetShadow(0, 0, <strong>15</strong>, 0, 0xcc000000);</code>
+![](docs/inset-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. Shadow is blurred with parallelized implemetation of [Gaussian blur][2].<br/> <code>decorator.background(0xfffcaf3e).insetShadow(0, 0, <strong>15</strong>, 0, 0xcc000000);</code>
 ![](docs/inset-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).<br/> <code>decorator.background(0xfffcaf3e).insetShadow(0, <strong>-5</strong>, <strong>10</strong>, 0, 0xaa000000);</code>
-![](docs/inset-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.<br/> <code>maestro.background(0xfffcaf3e).insetShadow(0, 0, 15, <strong>-15</strong>, 0xcc000000);</code>
-![](docs/inset-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary [`java.awt.Paint`](http://docs.oracle.com/javase/6/docs/api/java/awt/Paint.html). If the paint was not specified then paint returned by [`Graphics2D.getPaint()`](http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html#getPaint()) is used.<br/> To create a gradient inset shadow create a custom `GradientPaint` instance:<br/> `gp = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));`<br/> And use it to paint an inset shadow:<br/> <code>maestro.background(Color.WHITE).insetShadow(0, 0, 15, 0, <strong>gp</strong>);</code>
-
-
-
-
-
-
-
-
-
+![](docs/inset-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.<br/> <code>decorator.background(0xfffcaf3e).insetShadow(0, 0, 15, <strong>-15</strong>, 0xcc000000);</code>
+![](docs/inset-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary [`java.awt.Paint`](http://docs.oracle.com/javase/6/docs/api/java/awt/Paint.html). If the paint was not specified then paint returned by [`Graphics2D.getPaint()`](http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html#getPaint()) is used.<br/> To create a gradient inset shadow create a custom `GradientPaint` instance:<br/> `gp = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));`<br/> And use it to paint an inset shadow:<br/> <code>decorator.background(Color.WHITE).insetShadow(0, 0, 15, 0, <strong>gp</strong>);</code>
 
 #### Drop Shadow
 
@@ -62,83 +52,13 @@ Example | Description
 
 This painter inherits all the parameters from [inner shadow](#inner-shadow) and introduces:
 
-<table>
-<thead>
-<tr>
-    <th>Output</th>
-    <th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-    <td><img src="docs/drop-shadow-blur-radius.png"></td>
-    <td>
-<b>Blur Radius</b>
-<pre>
-new ShapePainter()
-    .background(new Color(0xfcaf3e))
-    .dropShadow(0, 0, 10, 0, new Color(0xcc000000, true), false)
-    .paint(shape, g);
-</pre>
-Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of <a href="http://en.wikipedia.org/wiki/Box_blur">box blur</a> filter.
-    </td>
-</tr>
-<tr>
-    <td><img src="docs/drop-shadow-offset.png"></td>
-    <td>
-<b>Offset</b>
-<pre>
-new ShapePainter()
-    .background(new Color(0xfcaf3e))
-    .dropShadow(5, 5, 10, 0, new Color(0x99000000, true), false)
-    .paint(shape, g);
-</pre>
-Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
-    </td>
-</tr>
-<tr>
-    <td><img src="docs/drop-shadow-spread.png"></td>
-    <td>
-<b>Spread</b>
-<pre>
-new ShapePainter()
-    .background(new Color(0xfcaf3e))
-    .dropShadow(6, 12, 6, -12, new Color(0xcc000000, true), false)
-    .paint(shape, g);
-</pre>
-Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
-    </td>
-</tr>
-<tr>
-    <td><img src="docs/drop-shadow-paint.png"></td>
-    <td>
-<b>Paint</b>
-<pre>
-Paint paint = new GradientPaint(
-        0, 0, new Color(0xfcaf3e),
-        60, 60, new Color(0x4e9a06));
-new ShapePainter()
-    .background(Color.WHITE)
-    .dropShadow(-2, -2, 15, 4, paint, false)
-    .paint(shape, g);
-</pre>
-Shadow may be painted with an arbitrary <code>java.awt.Paint</code>. If the paint was not specified then paint returned by <code>Graphics#getPaint()</code> is used.
-    </td>
-</tr>
-<tr>
-    <td><img src="docs/drop-shadow-exclude.png"></td>
-    <td>
-<b>Exclude Original Shape</b>
-<pre>
-new ShapePainter()
-    .dropShadow(0, 0, 10, 0, new Color(0xee000000, true), true)
-    .paint(shape, g);
-</pre>
-If set to <code>true</code> omits painting shadow pixels which overlap with original shape.
-    </td>
-</tr>
-</tbody>
-</table>
+Example | Description
+ --- | --- 
+![](docs/drop-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. Shadow is blurred with parallelized implemetation of [Gaussian blur][2].<br/> <code>decorator.background(0xfffcaf3e).dropShadow(0, 0, 10, 0, 0xcc000000, false)</code>
+![](docs/drop-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).<br/> <code>decorator.background(0xfffcaf3e).dropShadow(5, 5, 10, 0, 0x99000000, false);</code>
+![](docs/drop-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.<br/> <code>decorator.background(0xfffcaf3e).dropShadow(6, 12, 6, -12, 0xcc000000, false);</code>
+![](docs/drop-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary [`java.awt.Paint`](http://docs.oracle.com/javase/6/docs/api/java/awt/Paint.html). If the paint was not specified then paint returned by [`Graphics2D.getPaint()`](http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html#getPaint()) is used.<br/> To create a gradient inset shadow create a custom `GradientPaint` instance:<br/> `gp = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));`<br/> And use it to paint an inset shadow:<br/> <code>decorator.background(Color.WHITE).dropShadow(-2, -2, 15, 4, gp, false);</code>
+![](docs/drop-shadow-exclude.png) | **Exclude Original Shape**<br/> If set to `true` omits painting shadow pixels which overlap with original shape.<br/> <code>decorator.dropShadow(0, 0, 10, 0, 0xee000000, true)</code>
 
 ### Background
 
@@ -173,3 +93,4 @@ Default outline settings match ones defined in CSS specification. Outline painte
 The code is available under [MIT licence](LICENSE.txt).
 
 [1]: http://www.w3.org/TR/css3-background/#box-shadow
+[2]: http://en.wikipedia.org/wiki/Gaussian_blur
