@@ -39,30 +39,15 @@ This section describes bundled painters which provide same effects as CSS [`box-
 
 Default shadow settings match ones defined in CSS specification. Inset shadow with all parameters set to zero paints nothing.
 
-![](docs/inset-shadow-blur-radius.png) | ![](docs/inset-shadow-offset.png) | ![](docs/inset-shadow-spread.png) | ![](docs/inset-shadow-paint.png)
-:-:|:-:|:-:|:-:
-[Blur Radius](#inset-shadow-blur-radius) | [Offset](#offset) | [Spread](#spread) | [Paint](#paint)
 
-<a name="inset-shadow-blur-radius"></a>**Blur Radius.** Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur) filter.
-```java
-maestro.background(0xfffcaf3e).insetShadow(0, 0, 15, 0, 0xcc000000).paint(shape, g);
-```
+Example | Description
+ --- | --- 
+![](docs/inset-shadow-blur-radius.png) | **Blur Radius**<br/> Positive blur radius indicates that the resulting shadow should be blurred. If the blur value is zero or negative, the edge of the shadow is sharp. By default shadow is blurred with parallelized implemetation of [Gaussian blur](http://en.wikipedia.org/wiki/Gaussian_blur).<br/> <code>decorator.background(0xfffcaf3e).insetShadow(0, 0, <strong>15</strong>, 0, 0xcc000000);</code>
+![](docs/inset-shadow-offset.png) | **Offset**<br/> Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).<br/> <code>decorator.background(0xfffcaf3e).insetShadow(0, <strong>-5</strong>, <strong>10</strong>, 0, 0xaa000000);</code>
+![](docs/inset-shadow-spread.png) | **Spread**<br/> Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.<br/> <code>maestro.background(0xfffcaf3e).insetShadow(0, 0, 15, <strong>-15</strong>, 0xcc000000);</code>
+![](docs/inset-shadow-paint.png) | **Paint**<br/> Shadow may be painted with an arbitrary [`java.awt.Paint`](http://docs.oracle.com/javase/6/docs/api/java/awt/Paint.html). If the paint was not specified then paint returned by [`Graphics2D.getPaint()`](http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html#getPaint()) is used.<br/> To create a gradient inset shadow create a custom `GradientPaint` instance:<br/> `gp = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));`<br/> And use it to paint an inset shadow:<br/> <code>maestro.background(Color.WHITE).insetShadow(0, 0, 15, 0, <strong>gp</strong>);</code>
 
-<a name="inset-shadow-offset"></a>**Offset.** Horizontal and vertical offsets can be specified separately. A positive value draws a shadow that is offset to the right (bottom) of the box, a negative length to the left (top).
-```java
-maestro.background(new Color(0xfcaf3e)).insetShadow(0, -5, 10, 0, new Color(0xaa000000, true)).paint(shape, g);
-```
 
-<a name="inset-shadow-spread"></a>**Spread.** Positive values cause the shadow to expand in all directions by the specified value. Negative values cause the shadow to contract.
-```java
-maestro.background(0xfffcaf3e).insetShadow(0, 0, 15, 10, 0xcc000000).paint(shape, g);
-```
-
-<a name="inset-shadow-paint"></a>**Paint.** Shadow may be painted with an arbitrary [`java.awt.Paint`](http://docs.oracle.com/javase/6/docs/api/java/awt/Paint.html). If the paint was not specified then paint returned by [`Graphics2D.getPaint()`](http://docs.oracle.com/javase/6/docs/api/java/awt/Graphics2D.html#getPaint()) is used.
-```java
-Paint paint = new GradientPaint(0, 0, new Color(0xfcaf3e), 60, 60, new Color(0x4e9a06));
-maestro.background(Color.WHITE).insetShadow(0, 0, 15, 0, paint).paint(shape, g);
-```
 
 
 
