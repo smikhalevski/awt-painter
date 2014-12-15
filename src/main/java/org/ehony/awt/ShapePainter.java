@@ -75,7 +75,7 @@ public class ShapePainter<Type extends ShapePainter> extends CompositePainter
     }
 
     @SuppressWarnings("unchecked")
-    public Type background(Image image) {
+    public Type background(float dx, float dy, Image image) {
         ImagePainter painter = new ImagePainter();
         painter.setImage(image);
         layer(-100, painter);
